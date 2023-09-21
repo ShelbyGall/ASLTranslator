@@ -7,4 +7,3 @@ Authors:\
     Melchor GOAT\
     Jaztin Tabunda\
     Kyle Tulka\
-    charitha\
