@@ -4,4 +4,4 @@ Authors:\
     Aaron Hofman
     Ariel Villegas
 	Alejandro
-    hi losers
+    hi losers - bla bla bla
