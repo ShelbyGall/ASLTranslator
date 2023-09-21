@@ -1,4 +1,4 @@
 # ASLTranslator
-Authors:
+Authors:\
     Shelby Gallegos\
     Aaron Hofman
