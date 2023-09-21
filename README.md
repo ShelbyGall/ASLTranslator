@@ -1,1 +1,4 @@
 # ASLTranslator
+Authors:
+    Shelby Gallegos
+    
