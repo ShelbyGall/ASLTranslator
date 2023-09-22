@@ -1,0 +1,16 @@
+[33mcommit b5545f0eca516acc6ead3fbfa356f9218922e419[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Shelby Gallegos <sjgallegos270@gmail.com>
+Date:   Thu Sep 21 16:18:52 2023 -0700
+
+    removed Author: charitha
+
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 912981c..a67c3d2 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -7,4 +7,3 @@[m [mAuthors:\[m
+     Melchor GOAT\[m
+     Jaztin Tabunda\[m
+     Kyle Tulka\[m
+[31m-    charitha\[m
+\ No newline at end of file[m
