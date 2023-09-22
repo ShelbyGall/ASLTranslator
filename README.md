@@ -12,5 +12,5 @@ Authors:\
 	Alejandro\
     Melchor GOAT\
     Jaztin Tabunda\
-    Kyle Tulka\
+    Kyle Tulka
     
