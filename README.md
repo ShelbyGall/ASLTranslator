@@ -10,7 +10,8 @@ Authors:\
     Aaron Hofman\
     Ariel Villegas\
 	Alejandro\
-    Melchor GOAT\
+    Melchor THE GOAT but call me "Matt"
     Jaztin Tabunda\
     Kyle Tulka
     
+Hey Everyone please watch a Docker video over the weekend so we can start utilizing it for our project. Thnx - Matt
