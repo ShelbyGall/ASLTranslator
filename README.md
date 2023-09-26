@@ -19,4 +19,8 @@ Hey Everyone please watch a Docker video over the weekend so we can start utiliz
 Shelby wants to fight cuz he created a conflict
 new feature
 
+<<<<<<< HEAD
 Added to my branch and want to merge this into main
+=======
+Another new feature.
+>>>>>>> 18cb32aa7a9672a8a0748f8e0353138d588ab971
