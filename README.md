@@ -16,8 +16,5 @@ Authors:\
     
 Hey Everyone please watch a Docker video over the weekend so we can start utilizing it for our project. Thnx - Matt
 
-<<<<<<< HEAD
 Shelby wants to fight cuz he created a conflict
-=======
 new feature
->>>>>>> Test
