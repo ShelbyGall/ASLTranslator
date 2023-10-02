@@ -1,0 +1,15 @@
+CREATE TABLE `users` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `first_name` varchar(45) DEFAULT NULL,
+  `middle_name` varchar(45) DEFAULT NULL,
+  `last_name` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `profile_image` varchar(45) DEFAULT NULL,
+  `email_verified_at` datetime DEFAULT NULL,
+  `remember_token` varchar(45) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+)
