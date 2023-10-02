@@ -1,1 +1,2 @@
-Alex trying stuff
+print("hello")
+print("goodbye")
