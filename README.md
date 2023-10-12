@@ -10,11 +10,7 @@ Authors:\
     Aaron Hofman\
     Ariel Villegas\
 	Alejandro\
-    Melchor THE GOAT but call me "Matt"\
+    Melchor "Matt"\
     Jaztin Tabunda\
     Kyle Tulka\
     Joshua Alvarado
-Hey Everyone please watch a Docker video over the weekend so we can start utilizing it for our project. Thnx - Matt
-
-Shelby wants to fight cuz he created a conflict
-new feature
