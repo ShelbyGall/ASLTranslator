@@ -1,0 +1,116 @@
+<!--
+{#
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="username">Username</label>
+        <input name="username" id="username" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}
+#}
+-->
+
+<!--
+    {#
+    {% extends 'base.html' %} tells Jinja that this template should replace the blocks from
+    the base template. Al the rendered content must appear inside {% block %} tags that
+    override the blocks from the base template.
+    #}
+-->
+<!--
+    {#
+    A useful pattern used here is to place {% block title %} inside {% block header %}. This
+    will set the title block and then output the value of it into the header block, so that
+    both the window and page share the same title without writing it twice.
+    #}
+-->
+<!--
+    {#
+    The input tags are using the required attribute here. This tells the browser not to submit
+    the form until those fields are filled in. If the user is using an older browser that
+    doesn't support this attribute, or if they are using something besides a browser to make
+    requests, you still want to validate the data in the Flask view. It's important to always
+    fully validate the data on the server, even if the client does some validation as well.
+    #}
+-->
+
+<!--
+<div class="SignUpScreen" style="position: absolute; text-align: center"></div>
+-->
+<!--
+<div class="SignUpScreen" style="width: 430px; height: 932px; position: relative; background: linear-gradient(180deg, #E1EEC3 0%, #F05053 100%)">
+-->
+    {% extends 'base.html' %}
+
+    {% block header %}
+    <div class="SignUp" style="left: 138px; top: 103px; position: absolute; text-align: center; color: #0B0505; font-size: 40px; font-family: Poppins; font-weight: 700; word-wrap: break-word">{% block title %}Sign Up{% endblock %}</div>
+    <div class="CreateAccountWithEmail" style="width: 264px; height: 35px; left: 83px; top: 163px; position: absolute; text-align: center; color: #0E0606; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Create Account with Email</div>
+    {% endblock %}
+
+    {% block content %}
+    <form method="post" style="text-align:center">
+        <div class="BackgroundForButtons" style="width: 395px; height: 600px; left: 27px; top: 210px; position: absolute; background: rgba(217, 217, 217, 0.43); box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25); border-radius: 20px; border: 1px #786868 solid"></div>
+
+        <div class="FirstName" style="left: 36px; top: 226px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">First Name</div>
+        <input class="FirstNameInput" name="firstname" id="username" style="width: 179px; height: 37px; left: 36px; top: 253px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+        
+        <div class="LastName" style="left: 227px; top: 226px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Last Name</div>
+        <input class="LastNameInput" name="lastname" id="lastname" style="width: 179px; height: 37px; left: 227px; top: 253px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+        
+        <div class="EmailAddress" style="left: 36px; top: 303px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Email Address</div>
+        <input class="EmailAddressInput" type="email" name="email" id="email" required style="width: 370px; height: 37px; left: 36px; top: 330px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+        
+        <div class="Country" style="left: 36px; top: 397px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Country</div>
+        <input class="CountryInput" name="country" id="country" style="width: 141px; height: 37px; left: 36px; top: 426px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+        
+        <div class="MobileNumber" style="left: 202px; top: 397px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Mobile Number</div>
+        <div>
+            <head>
+                <style>
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    display: none;
+                }
+                </style>
+            </head>
+            <body>
+                <input class="MobileNumberInput" type="mobilenumber" placeholder="+1 (US)" name="mobilenumber" id="mobilenumber" style="width: 204px; height: 37px; left: 202px; top: 426px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+            </body>
+        </div>
+
+        <div class="Password" style="width: 91px; height: 27px; left: 36px; top: 503px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Password:</div>
+        <div class="AtLeast8Characters" style="left: 234px; top: 510px; position: absolute; text-align: center; color: black; font-size: 15px; font-family: Poppins; font-weight: 400; word-wrap: break-word">at least 8 characters</div>
+        <input class="PasswordInput" type="password" name="password" id="password" required style="width: 370px; height: 37px; left: 36px; top: 538px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+        
+        <div class="IAgreeToTheTermsConditionsAndPrivacyPolicy" style="width: 333px; height: 37px; left: 47px; top: 638px; position: absolute; text-align: center"><span style="color: black; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word">I agree to the </span><span style="color: #E00B0B; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word">Terms & Conditions</span><span style="color: black; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word"> and </span><span style="color: #E00B0B; font-size: 15px; font-family: Poppins; font-weight: 600; word-wrap: break-word">Privacy Policy</span></div>
+        
+        <div class="SignUpButton">
+        <div class="SignUp" style="left: 173px; top: 747px; position: absolute; text-align: center; color: white; font-size: 18px; font-family: Poppins; font-weight: 600; word-wrap: break-word">Sign Up</div>
+        <input class="SignUpButton" type="submit" value="Sign Up" style="width: 204px; height: 37px; left: 107px; top: 742px; position: absolute; background: linear-gradient(180deg, #3487FE 0%, #3F69FE 100%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px; border: 1px #111111 solid">
+        </div>
+    </form>
+    {% endblock %}
+
+  <!--
+  <div class="Group2" style="width: 373px; height: 25px; left: 29px; top: 15px; position: absolute">
+    <div class="TypcnBatteryCharge" style="width: 24px; height: 24px; left: 349px; top: 0px; position: absolute">
+      <div class="Vector" style="width: 19px; height: 12px; left: 2px; top: 7px; position: absolute; background: black"></div>
+    </div>
+    <div class="FaSolidWifi" style="width: 20px; height: 16px; left: 316px; top: 7px; position: absolute">
+      <div class="Vector" style="width: 20px; height: 14px; left: 0px; top: 1px; position: absolute; background: black"></div>
+    </div>
+    <div class="30" style="left: 0px; top: 5px; position: absolute; color: black; font-size: 12px; font-family: Poppins; font-weight: 600; word-wrap: break-word">16:30</div>
+  </div>
+  -->
+
+<!--
+</div>
+-->

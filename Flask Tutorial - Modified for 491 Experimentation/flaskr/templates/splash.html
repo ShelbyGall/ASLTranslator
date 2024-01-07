@@ -1,0 +1,18 @@
+{% block header %}
+<div class="ConnectThroughSigns" style="width: 294px; height: 121px; left: 68px; top: 101px; position: absolute; text-align: center; color: black; font-size: 40px; font-family: Libre Caslon Text; font-weight: 400; word-wrap: break-word">Connect through Signs</div>
+<img class="ASL Picture" style="width: 331px; height: 316px; left: 56px; top: 222px; position: absolute; border-radius: 10px" src="/static/ASL_Splash_Page_Image.png" alt="/static/331x316.png" />
+<div class="AtYourFingertips" style="width: 356px; height: 51px; left: 37px; top: 558px; position: absolute; text-align: center; color: black; font-size: 29px; font-family: Kite One; font-weight: 400; word-wrap: break-word">At Your Fingertips</div>
+{% endblock %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% block content %}
+<!--
+<div class="Group1" style="width: 373px; height: 25px; left: 29px; top: 15px; position: absolute">
+  <div class="30" style="left: 0px; top: 5px; position: absolute; color: black; font-size: 12px; font-family: Poppins; font-weight: 600; word-wrap: break-word">16:30</div>
+</div>
+-->
+<div class="StartButton" style="width: 409px; height: 70px; left: 11px; top: 730px; position: absolute">
+  <a href="{{ url_for('auth.login') }}"><button class="StartButtonBackground" style="width: 409px; height: 70px; left: 0px; top: 0px; position: absolute; background: linear-gradient(180deg, #9D4040 0%, rgba(217, 217, 217, 0) 100%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 15px; border: 1px #612525 solid"><div class="StartButtonText" type="submit" value="Splash to Login" style="width: 306px; height: 41px; left: 57px; top: 21px; position: absolute; text-align: center; color: black; font-size: 20px; font-family: Kite One; font-weight: 400; word-wrap: break-word">Ready, Set, Sign: Let’s Get Started!</div></button></a>
+</div>
+{% endblock %}
