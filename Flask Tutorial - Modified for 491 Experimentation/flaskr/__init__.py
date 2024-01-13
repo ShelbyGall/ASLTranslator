@@ -1,11 +1,29 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template
+from flask_mail import Mail
 
+'''EMAIL INFORMATION START'''
+#email = Mail()
+'''EMAIL INFORMATION END'''
+
+oneTimeSplash = False
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+
+    '''EMAIL INFORMATION START'''
+    
+    #app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    #app.config['MAIL_PORT'] = 465
+    #app.config['MAIL_USE_SSL'] = True
+    #app.config['MAIL_USERNAME'] = "username@gmail.com"
+    #app.config['MAIL_PASSWORD'] = "password"
+
+    #email.init_app(app)
+    '''EMAIL INFORMATION END'''
+
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -34,7 +52,14 @@ def create_app(test_config=None):
     db.init_app(app)
     
     from . import splash
+    #@app.before_first_request
+    #splash.splash()
     app.register_blueprint(splash.bp)
+
+    
+    #@app.route('/splash')
+    #def splash():
+    #    return render_template('splash.html')
 
     from . import auth
     app.register_blueprint(auth.bp)
@@ -42,6 +67,12 @@ def create_app(test_config=None):
     from . import blog
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
+
+    import webbrowser
+    global oneTimeSplash
+    if oneTimeSplash == False:
+        webbrowser.open('http://127.0.0.1:5000/splash')
+        oneTimeSplash = True
 
     return app
 

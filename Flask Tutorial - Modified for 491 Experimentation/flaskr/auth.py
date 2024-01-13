@@ -6,8 +6,14 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
+from flaskr.db import findUser
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+#@bp.before_first_request
+#@bp.route('/splash')
+#def splash():
+#    return render_template('splash.html')
 
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -29,7 +35,21 @@ def register():
             error = 'Password is required.'
 
         if error is None:
+            if findUser(None, email) is not None:
+                error = f"Email {email} is already registered."
+            else:
+                cursor = db.cursor(dictionary=True)
+                cursor.execute(
+                    "INSERT INTO user (password, firstname, lastname, email, country, mobilenumber) VALUES (%s, %s, %s, %s, %s, %s)",
+                    (generate_password_hash(password), firstname, lastname, email, country, mobilenumber)
+                )
+                g.db.commit()
+                cursor.close()
+
+                return redirect(url_for("auth.login"))
+            '''
             try:
+                
                 db.execute(
                     #"INSERT INTO user (username, password, firstname, lastname, email, country, mobilenumber) VALUES (?, ?, ?, ?, ?, ?, ?)",
                     "INSERT INTO user (password, firstname, lastname, email, country, mobilenumber) VALUES (?, ?, ?, ?, ?, ?)",
@@ -37,11 +57,14 @@ def register():
                     #(username, generate_password_hash(password))
                 )
                 db.commit()
+                
+
             except db.IntegrityError:
                 #error = f"User {email} is already registered."
                 error = f"Email {email} is already registered."
             else:
                 return redirect(url_for("auth.login"))
+            '''
 
         flash(error)
 
@@ -53,11 +76,23 @@ def login():
     if request.method == 'POST':
         usernameoremail = request.form['usernameoremail']
         password = request.form['password']
+
+        '''
         db = get_db()
         error = None
         user = db.execute(
             'SELECT * FROM user WHERE username = ? OR email = ?', (usernameoremail, usernameoremail)
         ).fetchone()
+        '''
+
+        cursor = get_db().cursor(dictionary=True)
+        error = None
+        cursor.execute(
+            "SELECT * FROM user WHERE username = %s OR email = %s",
+            (usernameoremail, usernameoremail)
+        )
+        user = cursor.fetchone()
+        cursor.close()
 
         if user is None:
             error = 'Incorrect username or email.'
@@ -81,9 +116,18 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
+        '''
         g.user = get_db().execute(
             'SELECT * FROM user WHERE id = ?', (user_id,)
         ).fetchone()
+        '''
+        cursor = get_db().cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * FROM user WHERE id=%s",
+            (user_id, )
+        )
+        g.user = cursor.fetchone()
+        cursor.close()
 
 @bp.route('/logout')
 def logout():
@@ -100,6 +144,103 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+'''EMAIL INFORMATION START'''
+
+from . import emailsender
+
+@bp.route('/reset', methods=('GET', 'POST'))
+def reset():
+
+    if request.method == 'GET':
+        return render_template('reset.html')
+
+    if request.method == 'POST':
+
+        email = request.form['email']
+        '''
+        db = get_db()
+        user = db.execute(
+            'SELECT * FROM user WHERE email = ?', (email,)
+        ).fetchone()
+        '''
+        cursor = get_db().cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * FROM user WHERE email=%s",
+            (email, )
+        )
+        user = cursor.fetchone()
+        cursor.close()
+
+        flash("If this email is associated with an account, an email will be sent.")
+
+        if user:
+            emailsender.send_email(user)
+
+        return redirect(url_for('auth.login'))
+    
+    return render_template('reset.html')
+
+
+import jwt, os
+
+@bp.route('/password_reset_verified/<token>', methods=['GET', 'POST'])
+def reset_verified(token):
+
+    usernameoremail = verify_reset_token(token)
+    if not usernameoremail:
+        print('no email found')
+        return redirect(url_for('auth.login'))
+    
+    password = request.form['password']
+    db = get_db()
+    error = None
+    if not password:
+        error = 'Password is required.'
+
+    if error is None:
+        try:
+            '''
+            db.execute(
+                #"INSERT INTO user (username, password, firstname, lastname, email, country, mobilenumber) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                "UPDATE user SET password = ? WHERE email = ?",
+                (generate_password_hash(password), usernameoremail,),
+                #(username, generate_password_hash(password))
+            )
+            db.commit()
+            '''
+            cursor = db.cursor(dictionary=True)
+            cursor.execute(
+                "UPDATE user SET password = %s WHERE email = %s",
+                (generate_password_hash(password), usernameoremail,)
+            )
+            db.commit()
+            cursor.close()
+        except:
+            pass
+
+    if error is None:
+        return redirect(url_for('app_routes.login'))
+
+    return render_template('reset_verified.html')
+
+def verify_reset_token(token):
+    try:
+        usernameoremail = jwt.decode(token,
+            key=os.getenv('SECRET_KEY_FLASK'))['reset_password']
+    except Exception as e:
+        print(e)
+        return
+    else:
+        db = get_db()
+        user = db.execute(
+            'SELECT * FROM user WHERE email = %s',
+            (usernameoremail,)
+        ).fetchone()
+        return user
+
+'''EMAIL INFORMATION END'''
 
 '''
 import functools

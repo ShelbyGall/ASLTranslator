@@ -1,0 +1,36 @@
+<!--
+<div class="ForgotPassword" style="width: 430px; height: 932px; position: relative; background: linear-gradient(180deg, #E1EEC3 0%, #F05053 100%)">
+-->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    {% block content %}
+    <div class="ForgotPassword" style="left: 44px; top: 103px; position: absolute; text-align: center; color: #0B0505; font-size: 40px; font-family: Poppins; font-weight: 700; word-wrap: break-word">Forgot Password</div>
+    <div class="PleaseEnterTheEmailAddressYouDLikeYourPasswordResetInformationSentTo" style="width: 335px; height: 123px; left: 48px; top: 163px; position: absolute; text-align: center; color: #0E0606; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Please enter the email address you’d like your password reset information sent to</div>
+    
+    <!--
+    <div class="Group2" style="width: 373px; height: 25px; left: 29px; top: 15px; position: absolute">
+      <div class="TypcnBatteryCharge" style="width: 24px; height: 24px; left: 349px; top: 0px; position: absolute">
+        <div class="Vector" style="width: 19px; height: 12px; left: 2px; top: 7px; position: absolute; background: black"></div>
+      </div>
+      <div class="FaSolidWifi" style="width: 20px; height: 16px; left: 316px; top: 7px; position: absolute">
+        <div class="Vector" style="width: 20px; height: 14px; left: 0px; top: 1px; position: absolute; background: black"></div>
+      </div>
+      <div class="30" style="left: 0px; top: 5px; position: absolute; color: black; font-size: 12px; font-family: Poppins; font-weight: 600; word-wrap: break-word">16:30</div>
+    </div>
+    -->
+
+    <div class="EnterEmailAddress" style="left: 29px; top: 370px; position: absolute; text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Enter email address</div>
+    <input class="EnterEmailInput" name="email" id="email" required style="width: 373px; height: 56px; left: 29px; top: 400px; position: absolute; background: #FAEBEB; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid"></div>
+
+    <!--
+    <div class="RequestResetText" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Request reset link</div>
+    -->
+
+    <input class="RequestResetButton" type="submit" value="Request reset link" style="width: 373px; height: 56px; left: 29px; top: 519px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">
+    
+    <div class="BackToLogin" style="left: 145px; top: 597px; position: absolute; text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 600; word-wrap: break-word"><a href="{{ url_for('auth.login') }}">Back To Login</a></div>
+    {% endblock %}
+  <!--
+  </div>
+  -->

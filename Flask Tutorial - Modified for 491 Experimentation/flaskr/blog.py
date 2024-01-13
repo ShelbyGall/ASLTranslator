@@ -11,12 +11,24 @@ bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
+    '''
     db = get_db()
     posts = db.execute(
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
+    '''
+
+    cursor = get_db().cursor(dictionary=True)
+    cursor.execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' ORDER BY created DESC'
+    )
+    posts = cursor.fetchall()
+    cursor.close()
+
     return render_template('index.html', posts=posts)
 
 
@@ -34,25 +46,50 @@ def create():
         if error is not None:
             flash(error)
         else:
-            db = get_db()
+            '''
             db.execute(
                 'INSERT INTO post (title, body, author_id)'
                 ' VALUES (?, ?, ?)',
                 (title, body, g.user['id'])
             )
             db.commit()
+            '''
+
+            db = get_db()
+            cursor = db.cursor(dictionary=True)
+            cursor.execute(
+                'INSERT INTO post (title, body, author_id)'
+                ' VALUES (%s, %s, %s)',
+                (title, body, g.user['id'])
+            )
+            g.db.commit()
+            cursor.close()
+
             return redirect(url_for('blog.index'))
 
     return render_template('create.html')
 
 
 def get_post(id, check_author=True):
+    '''
     post = get_db().execute(
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
         (id,)
     ).fetchone()
+    '''
+
+    cursor = get_db().cursor(dictionary=True)
+    cursor.execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' WHERE p.id = %s',
+        (id,)
+    )
+    post = cursor.fetchone()
+    cursor.close()
+
 
     if post is None:
         abort(404, f"Post id {id} doesn't exist.")
@@ -79,6 +116,7 @@ def update(id):
         if error is not None:
             flash(error)
         else:
+            '''
             db = get_db()
             db.execute(
                 'UPDATE post SET title = ?, body = ?'
@@ -86,6 +124,18 @@ def update(id):
                 (title, body, id)
             )
             db.commit()
+            '''
+
+            db = get_db()
+            cursor = db.cursor(dictionary=True)
+            cursor.execute(
+                'UPDATE post SET title = %s, body = %s'
+                ' WHERE id = %s',
+                (title, body, id)
+            )
+            g.db.commit()
+            cursor.close()
+
             return redirect(url_for('blog.index'))
 
     return render_template('update.html', post=post)
@@ -95,9 +145,20 @@ def update(id):
 @login_required
 def delete(id):
     get_post(id)
+    '''
     db = get_db()
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
+    '''
+    
+    cursor = get_db().cursor(dictionary=True)
+    cursor.execute(
+        'DELETE FROM post WHERE id = %s',
+        (id,)
+    )
+    g.db.commit()
+    cursor.close()
+
     return redirect(url_for('blog.index'))
 
 '''
