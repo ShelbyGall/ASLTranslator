@@ -1,24 +1,7 @@
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} - Flaskr</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-    <!--
-    {#
-    {% if not g.spashVisited %}
-        <meta http-equiv="refresh" content="0"; url="{{ url_for('splash.splash') }}" />
-        {% set g.spashVisited = True %}
-    {% else %}
-        {% if g.user %}
-            <h1>Flaskr</h1>
-            <u1>
-                <li><span>{{ g.user['username'] }}</span>
-                <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-            </u1>
-        {% endif %}
-    {% endif %}
-    #}
-    -->
-    
+<nav>    
     <h1>Flaskr</h1>
     <u1>
         {% if g.user %}
@@ -29,7 +12,6 @@
             <li><a href="{{ url_for('auth.login') }}">Log In</a>
         {% endif %}
     </u1>
-    
 
 </nav>
 <section class="content">
