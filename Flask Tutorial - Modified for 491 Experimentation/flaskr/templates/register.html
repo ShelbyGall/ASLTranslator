@@ -1,24 +1,4 @@
 <!--
-{#
-{% extends 'base.html' %}
-
-{% block header %}
-    <h1>{% block title %}Register{% endblock %}</h1>
-{% endblock %}
-
-{% block content %}
-    <form method="post">
-        <label for="username">Username</label>
-        <input name="username" id="username" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <input type="submit" value="Register">
-    </form>
-{% endblock %}
-#}
--->
-
-<!--
     {#
     {% extends 'base.html' %} tells Jinja that this template should replace the blocks from
     the base template. Al the rendered content must appear inside {% block %} tags that
@@ -42,12 +22,6 @@
     #}
 -->
 
-<!--
-<div class="SignUpScreen" style="position: absolute; text-align: center"></div>
--->
-<!--
-<div class="SignUpScreen" style="width: 430px; height: 932px; position: relative; background: linear-gradient(180deg, #E1EEC3 0%, #F05053 100%)">
--->
     {% extends 'base.html' %}
 
     {% block header %}
@@ -98,19 +72,3 @@
         </div>
     </form>
     {% endblock %}
-
-  <!--
-  <div class="Group2" style="width: 373px; height: 25px; left: 29px; top: 15px; position: absolute">
-    <div class="TypcnBatteryCharge" style="width: 24px; height: 24px; left: 349px; top: 0px; position: absolute">
-      <div class="Vector" style="width: 19px; height: 12px; left: 2px; top: 7px; position: absolute; background: black"></div>
-    </div>
-    <div class="FaSolidWifi" style="width: 20px; height: 16px; left: 316px; top: 7px; position: absolute">
-      <div class="Vector" style="width: 20px; height: 14px; left: 0px; top: 1px; position: absolute; background: black"></div>
-    </div>
-    <div class="30" style="left: 0px; top: 5px; position: absolute; color: black; font-size: 12px; font-family: Poppins; font-weight: 600; word-wrap: break-word">16:30</div>
-  </div>
-  -->
-
-<!--
-</div>
--->

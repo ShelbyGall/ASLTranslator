@@ -1,31 +1,3 @@
-<!--
-{#
-{% extends 'base.html' %}
-{% block header %}
-    <h1>{% block title %}Log In{% endblock %}</h1>
-{% endblock %}
-
-{% block content %}
-    <form method="post">
-        <label for="username">Username</label>
-        <input name="username" id="username" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-        <input type="submit" value="Log In">
-    </form>
-{% endblock %}
-#}
--->
-
-<!--
-    {#
-    The login template is identical to the register template except for the title and submit buttons.
-    #}
--->
-
-<!--
-<div class="LetSGetStarted" style="width: 430px; height: 932px; position: relative; background: linear-gradient(180deg, #E1EEC3 0%, #F05053 100%)">
--->
 {% extends 'base.html' %}
 
 {% block header %}
@@ -41,69 +13,14 @@
     <div class="Line185" style="width: 144px; height: 0px; left: 235px; top: 641.50px; position: absolute; border: 1px black solid"></div>
     <div class="DontHaveAnAccountSignUp" style="width: 363px; height: 35px; left: 31px; top: 690px; position: absolute; text-align: center"><span style="color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Don’t have an account? </span><span style="color: black; font-size: 20px; font-family: Poppins; font-weight: 700; word-wrap: break-word"><a href="{{ url_for('auth.register') }}">Sign Up</a></span></div>
 
-    <!--
-    <div class="ForgotPassword" style="width: 260px; height: 27px; left: 87px; top: 593px; position: absolute; text-align: center; color: black; font-size: 15px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Forgot Password?</div>
-    -->
     <div class="ForgotPassword" style="width: 260px; height: 27px; left: 87px; top: 593px; position: absolute; text-align: center; color: black; font-size: 15px; font-family: Poppins; font-weight: 400; word-wrap: break-word"><a href="{{ url_for('auth.reset') }}">Forgot Password?</a></div>
 
     <div class="AlreadyRegisteredInput" style="left: 52px; top: 345px; position: absolute; text-align: center; color: #130D0D; font-size: 20px; font-family: Roboto; font-weight: 700; word-wrap: break-word">Already registered | login</div>
     
-    <!--
-    <div class="EmailOrUsername" style="width: 262px; height: 32px; left: 76px; top: 411px; position: absolute; text-align: center; color: rgba(0, 0, 0, 0.30); font-size: 20px; font-family: Roboto; font-weight: 700; word-wrap: break-word">Email or username</div>
-    -->
     <input name="usernameoremail" id="usernameoremail" required placeholder="Email" style="width: 304px; height: 45px; left: 52px; top: 398px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
     
-    <!--
-    <div class="Password" style="width: 337px; height: 27px; left: 31px; top: 484px; position: absolute; text-align: center; color: rgba(0, 0, 0, 0.30); font-size: 20px; font-family: Roboto; font-weight: 700; word-wrap: break-word">Password</div>
-    -->
     <input type="password" name="password" id="password" required placeholder="Password" style="width: 304px; height: 45px; left: 52px; top: 473px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
 
-    <!--
-    <div class="LogIn" style="width: 56px; height: 24px; left: 179px; top: 553px; position: absolute; text-align: center; color: #FFFBFB; font-size: 18px; font-family: Roboto; font-weight: 600; word-wrap: break-word">Log In</div>
-    -->
     <input type="submit" value="Log In" style="width: 117px; height: 34px; left: 148px; top: 548px; position: absolute; text-align: center; background: linear-gradient(180deg, rgba(97.20, 94.69, 246.91, 0.65) 0%, rgba(75, 72, 254, 0) 100%); box-shadow: 0px 4px 4px rgba(10.27, 9.56, 9.56, 0.25); border-radius: 20px; border: 1px rgba(13.46, 12.82, 12.82, 0.51) solid">
     </form>
 {% endblock %}
-  <!--
-  <div class="Text" style="width: 94px; height: 19px; left: 77px; top: 454px; position: absolute; text-align: center"><span style="color: black; font-size: 25px; font-family: Roboto; font-weight: 800; word-wrap: break-word"><br/></span><span style="color: black; font-size: 20px; font-family: Roboto; font-weight: 700; word-wrap: break-word"><br/></span></div>
-  -->
-
-  <!--
-  <div class="FacebookLogo" style="width: 50px; height: 50px; left: 277px; top: 676px; position: absolute">
-    <div class="Vector" style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute; background: #3C5A9A"></div>
-    <div class="Vector" style="width: 16.31px; height: 34.65px; left: 16.85px; top: 7.67px; position: absolute; background: white"></div>
-  </div>
-
-  <div class="InstagramLogo" style="width: 50px; height: 50px; left: 185px; top: 676px; position: absolute">
-    <div class="Group" style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute">
-      <div class="Vector" style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute; background: radial-gradient(78.25% 108.62% at 406.36% -1607.70%, #FF005F 0%, #FC01D8 100%)"></div>
-      <div class="Vector" style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute; background: radial-gradient(62.64% 59.04% at 196.93% 49.46%, #FFCC00 0%, #FFCC00 12%, #FE4A05 57%, #FF0F3F 69%, rgba(254, 6, 87, 0) 100%)"></div>
-      <div class="Vector" style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute; background: radial-gradient(151.48% 116.35% at -409.68% 430.01%, #FFCC00 0%, rgba(255, 204, 0, 0) 100%)"></div>
-      <div class="Vector" style="width: 50px; height: 50px; left: 0px; top: 0px; position: absolute; background: radial-gradient(79.13% 232.26% at 225.47% -118.80%, #780CFF 0%, rgba(130, 11, 255, 0) 100%)"></div>
-      <div class="Vector" style="width: 37.18px; height: 37.15px; left: 6.42px; top: 6.42px; position: absolute; background: white"></div>
-    </div>
-  </div>
-
-  <div class="GoogleLogo" style="width: 50px; height: 50px; left: 99px; top: 676px; position: absolute">
-    <div class="Vector" style="width: 24.49px; height: 23.43px; left: 25.51px; top: 20.46px; position: absolute; background: #4285F4"></div>
-    <div class="Vector" style="width: 39.68px; height: 20px; left: 2.72px; top: 29.93px; position: absolute; background: #34A853"></div>
-    <div class="Vector" style="width: 11px; height: 22.50px; left: 0px; top: 13.69px; position: absolute; background: #FBBC05"></div>
-    <div class="Vector" style="width: 39.85px; height: 20px; left: 2.72px; top: 0.07px; position: absolute; background: #EB4335"></div>
-  </div>
-  -->
-
-  <!--
-  <div class="Group3" style="width: 373px; height: 25px; left: 29px; top: 15px; position: absolute">
-    <div class="TypcnBatteryCharge" style="width: 24px; height: 24px; left: 349px; top: 0px; position: absolute">
-      <div class="Vector" style="width: 19px; height: 12px; left: 2px; top: 7px; position: absolute; background: black"></div>
-    </div>
-    <div class="FaSolidWifi" style="width: 20px; height: 16px; left: 316px; top: 7px; position: absolute">
-      <div class="Vector" style="width: 20px; height: 14px; left: 0px; top: 1px; position: absolute; background: black"></div>
-    </div>
-    <div class="30" style="left: 0px; top: 5px; position: absolute; color: black; font-size: 12px; font-family: Poppins; font-weight: 600; word-wrap: break-word">16:30</div>
-  </div>
-  -->
-
-<!--
-</div>
--->

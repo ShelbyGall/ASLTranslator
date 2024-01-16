@@ -1,11 +1,14 @@
-{% block header %}
-  <h1>{% block title %}Reset Password{% endblock %}</h1>
-{% endblock %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 {% block content %}
-  <form method="post">
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Reset Password">
-  </form>
+<form method="post" style="text-align:center">
+  <div class="ForgotPassword" style="left: 44px; top: 103px; position: absolute; text-align: center; color: #0B0505; font-size: 40px; font-family: Poppins; font-weight: 700; word-wrap: break-word">Forgot Password</div>
+  <div class="PleaseEnterYourNewPassword" style="width: 335px; height: 123px; left: 48px; top: 163px; position: absolute; text-align: center; color: #0E0606; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Please enter your new password</div>
+
+  <div class="EnterPassword" style="left: 29px; top: 370px; position: absolute; text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Enter password</div>
+  <input class="EnterPasswordInput" name="password" id="password" required style="width: 373px; height: 56px; left: 29px; top: 400px; position: absolute; background: #FAEBEB; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid"></div>
+
+  <input type="submit" value="Submit" style="width: 373px; height: 56px; left: 29px; top: 519px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">
+  
+</form>
 {% endblock %}
