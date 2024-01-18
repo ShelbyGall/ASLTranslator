@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<img class="B737d2d96d96840b33ed7HowToLearnBasicConversationalSignLanguage1" style="width: 130px; height: 293px; left: 1599px; top: 118px; position: absolute" src="https://via.placeholder.com/130x293" />
+<div class="AmericanSignLanguageLearningAppSignIn" style="width: 387px; height: 143px; left: 31px; top: 98px; position: absolute; color: black; font-size: 36px; font-family: Poppins; font-weight: 600; word-wrap: break-word">American Sign Language Learning App<br/><br/>Sign In</div>
+{% endblock %}
+
+{% block content %}
+  <form method="post" style="text-align:center">
+    <div class="BackgroundForButtons" style="width: 375px; height: 462px; left: 27px; top: 317px; position: absolute; background: rgba(217, 217, 217, 0.43); box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25); border-radius: 20px; border: 1px #786868 solid"></div>
+    <div class="Line186" style="width: 144px; height: 0px; left: 52px; top: 640.88px; position: absolute; border: 1px black solid"></div>
+    <div class="Or" style="left: 204px; top: 629px; position: absolute; text-align: center; color: black; font-size: 15px; font-family: Poppins; font-weight: 400; word-wrap: break-word">OR</div>
+    <div class="Line185" style="width: 144px; height: 0px; left: 235px; top: 641.50px; position: absolute; border: 1px black solid"></div>
+    <div class="DontHaveAnAccountSignUp" style="width: 363px; height: 35px; left: 31px; top: 690px; position: absolute; text-align: center"><span style="color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Don’t have an account? </span><span style="color: black; font-size: 20px; font-family: Poppins; font-weight: 700; word-wrap: break-word"><a href="{{ url_for('auth.register') }}">Sign Up</a></span></div>
+
+    <div class="ForgotPassword" style="width: 260px; height: 27px; left: 87px; top: 593px; position: absolute; text-align: center; color: black; font-size: 15px; font-family: Poppins; font-weight: 400; word-wrap: break-word"><a href="{{ url_for('auth.reset') }}">Forgot Password?</a></div>
+
+    <div class="AlreadyRegisteredInput" style="left: 52px; top: 345px; position: absolute; text-align: center; color: #130D0D; font-size: 20px; font-family: Roboto; font-weight: 700; word-wrap: break-word">Already registered | login</div>
+    
+    <input name="usernameoremail" id="usernameoremail" required placeholder="Email" style="width: 304px; height: 45px; left: 52px; top: 398px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+    
+    <input type="password" name="password" id="password" required placeholder="Password" style="width: 304px; height: 45px; left: 52px; top: 473px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+
+    <input type="submit" value="Log In" style="width: 117px; height: 34px; left: 148px; top: 548px; position: absolute; text-align: center; background: linear-gradient(180deg, rgba(97.20, 94.69, 246.91, 0.65) 0%, rgba(75, 72, 254, 0) 100%); box-shadow: 0px 4px 4px rgba(10.27, 9.56, 9.56, 0.25); border-radius: 20px; border: 1px rgba(13.46, 12.82, 12.82, 0.51) solid">
+    </form>
+{% endblock %}
