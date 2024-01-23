@@ -6,11 +6,11 @@ from werkzeug.exceptions import abort
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
-bp = Blueprint('blog', __name__)
+bp = Blueprint('blog', __name__, url_prefix='/blog')
 
 
 @bp.route('/')
-def index():
+def postpage():
     cursor = get_db().cursor(dictionary=True)
     cursor.execute(
         'SELECT p.id, title, body, created, author_id, username'
@@ -20,7 +20,7 @@ def index():
     posts = cursor.fetchall()
     cursor.close()
 
-    return render_template('index.html', posts=posts)
+    return render_template('blog.html', posts=posts)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -47,7 +47,7 @@ def create():
             g.db.commit()
             cursor.close()
 
-            return redirect(url_for('blog.index'))
+            return redirect(url_for('blog.postpage'))
 
     return render_template('create.html')
 
@@ -99,7 +99,7 @@ def update(id):
             g.db.commit()
             cursor.close()
 
-            return redirect(url_for('blog.index'))
+            return redirect(url_for('blog.postpage'))
 
     return render_template('update.html', post=post)
 
@@ -116,4 +116,4 @@ def delete(id):
     g.db.commit()
     cursor.close()
 
-    return redirect(url_for('blog.index'))
+    return redirect(url_for('blog.postpage'))

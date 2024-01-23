@@ -70,6 +70,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
+            #return redirect(url_for('index'))
             return redirect(url_for('index'))
 
         flash(error)
@@ -130,7 +131,8 @@ def reset():
         flash("If this email is associated with an account, an email will be sent to it.")
 
         if user:
-            emailsender.send_email(email)
+            #emailsender.send_email(email)
+            emailsender.send_email(email, 'reset_email.html')
 
         return redirect(url_for('auth.login'))
     
@@ -209,3 +211,34 @@ def verify_reset_token(token):
         return user
 
 '''EMAIL INFORMATION END'''
+
+'''TERMINATE ACCOUNT START'''
+@bp.route('/terminate_account', methods=('GET', 'POST'))
+@login_required
+def terminate_account():
+    if request.method == 'POST':
+        email = request.form['email']
+        cursor = get_db().cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * FROM user WHERE email=%s",
+            (email, )
+        )
+        user = cursor.fetchone()
+        cursor.close()
+
+        flash("You just terminated your account. Come back again soon! :-)")
+
+        if user:
+            emailsender.send_email(email, 'termination_email.html')
+            cursor = get_db().cursor(dictionary=True) 
+            cursor.execute(
+                "DELETE FROM %s WHERE email=%s AND password=%s",
+                (email, generate_password_hash(user[2]), )
+            )
+            user = cursor.fetchone()
+            cursor.close()
+
+        return redirect(url_for('auth.logout'))
+    
+    return render_template('account_deletion.html')
+'''TERMINATE ACCOUNT END'''

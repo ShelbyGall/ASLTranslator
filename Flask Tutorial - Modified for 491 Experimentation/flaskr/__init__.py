@@ -47,9 +47,9 @@ def create_app(test_config=None):
         pass
 
     # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    # @app.route('/hello')
+    #def hello():
+    #    return 'Hello, World!'
     #------------------------------
 
     from . import db
@@ -70,6 +70,9 @@ def create_app(test_config=None):
     
     from . import blog
     app.register_blueprint(blog.bp)
+
+    from .import home
+    app.register_blueprint(home.bp)
     app.add_url_rule('/', endpoint='index')
 
     import webbrowser

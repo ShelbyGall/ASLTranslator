@@ -7,7 +7,8 @@ bp = Blueprint('resetrequest', __name__, url_prefix='/resetrequest')
 from . import mailSender, defaultSenderEmail
 from . import auth
 
-def send_email(usernameoremail):
+#def send_email(usernameoremail):
+def send_email(usernameoremail, htmlInput):
 
     token = auth.get_reset_token(usernameoremail)
 
@@ -15,5 +16,6 @@ def send_email(usernameoremail):
         sender = defaultSenderEmail,
         recipients = [usernameoremail]
     )
-    msg.html = render_template('reset_email.html', usernameoremail=usernameoremail, token=token)
+    #msg.html = render_template('reset_email.html', usernameoremail=usernameoremail, token=token)
+    msg.html = render_template(htmlInput, usernameoremail=usernameoremail, token=token)
     mailSender.send(msg)

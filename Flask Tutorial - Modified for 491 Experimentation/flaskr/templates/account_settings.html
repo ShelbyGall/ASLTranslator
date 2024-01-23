@@ -1,0 +1,82 @@
+<!--
+<div class="AccountSettingsPage" style="width: 430px; height: 932px; position: relative; background: linear-gradient(180deg, #E1EEC3 0%, #F05053 100%)">
+-->
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+{% block content %}
+  <form method="post" style="text-align:center">
+    <div class="Account_Settings" style="left: 111px; top: 76px; position: absolute; text-align: center; color: #0B0505; font-size: 25px; font-family: Poppins; font-weight: 700; word-wrap: break-word">Account Settings</div>
+    <img class="Account_Icon" style="width: 152px; height: 126px; left: 145px; top: 131px; position: absolute; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)" src="/static/Account_Icon.png" alt="/static/331x316.png" />
+      
+
+    <div class="First_Name" style="left: 36px; top: 275px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">First Name</div>
+    <input class="First_Name_Input" name="firstname" id="username" placeholder="{{ outputString['firstname'] }}" style="width: 179px; height: 37px; left: 36px; top: 302px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+
+    <div class="Last_Name" style="left: 227px; top: 275px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Last Name</div>
+    <input class="Last_Name_Input" name="lastname" id="lastname" placeholder="{{ outputString['lastname'] }}" style="width: 179px; height: 37px; left: 227px; top: 302px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+
+    <div class="Email_Address" style="left: 36px; top: 352px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Email Address</div>
+    <input class="Email_Display" name="emaildisplay" id="emaildisplay" placeholder="{{ outputString['email'] }}" style="width: 370px; height: 37px; left: 36px; top: 379px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+    <div class="Email_Display_Cover" style="width: 370px; height: 37px; left: 36px; top: 379px; position: absolute; background: rgba(255, 255, 255, 0); border-radius: 20px"></div>
+    <div class="This_Cannot_Be_Changed" style="left: 207px; top: 355px; position: absolute; text-align: center; color: black; font-size: 15px; font-family: Poppins; font-weight: 400; word-wrap: break-word">This cannot be changed.</div>
+
+    <div class="Country" style="left: 36px; top: 431px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Country</div>
+    <input class="Country_Input" name="country" id="country" placeholder="{{ outputString['country'] }}" style="width: 141px; height: 37px; left: 36px; top: 460px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+
+    <div class="Mobile_Number" style="left: 202px; top: 431px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Mobile Number</div>
+    <div>
+      <head>
+        <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            display: none;
+        }
+        </style>
+      </head>
+      <body>
+        <!--
+        <input class="Mobile_Number_Input" type="mobilenumber" placeholder="+1 (US)" name="mobilenumber" id="mobilenumber" style="width: 204px; height: 37px; left: 202px; top: 460px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+        -->
+        <input class="Mobile_Number_Input" type="mobilenumber" name="mobilenumber" id="mobilenumber" placeholder="{{ outputString['mobilenumber'] }}" style="width: 204px; height: 37px; left: 202px; top: 460px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+      </body>
+    </div>
+
+    <div class="Choose_A_New_Password" style="width: 240px; height: 27px; left: 36px; top: 510px; position: absolute; text-align: center; color: black; font-size: 18px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Choose a new password</div>
+    <input class="New_Password_Input" type="password" name="newpasswordinput" id="newpasswordinput" placeholder="Password" style="width: 370px; height: 37px; left: 36px; top: 545px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+    <input class="Confirm_New_Password_Input" type="password" name="confirmnewpasswordinput" id="confirmnewpasswordinput" placeholder="Confirm New Password" style="width: 370px; height: 37px; left: 36px; top: 594px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+    
+    <input class="Save_Changes" type="submit" value="Save Changes" style="border-color: #ffffff00; background-color: #ffffff00; width: 260px; height: 27px; left: 85px; top: 646px; position: absolute; text-align: center; color: #62E6F9; font-size: 18px; font-family: Poppins; font-weight: 700; word-wrap: break-word">
+
+    <!--{#
+    <button onclick="location.href = '{{ url_for('index') }}';">
+    #}-->
+    <!--
+    <button onclick="location.href = '/'">
+    -->
+      <div class="Frame3" style="padding: 10px; left: 135px; top: 689px; position: absolute; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
+        <div class="Frame2" style="justify-content: center; align-items: center; gap: 10px; display: flex">
+          <div class="Back_To_Home_Page_Button_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Back to Home</div>
+        </div>
+      </div>
+      <a href="/"><div class="Back_To_Home_Page_Button" style="width: 373px; height: 56px; left: 28px; top: 686px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid;text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Back to Home</div></a>
+    <!--
+    </button>
+    -->
+
+    <!--{#
+    <button onclick="location.href = '{{ url_for('auth.terminate_account') }}';">
+    #}-->
+      <!--
+      <div class="Delete_Account" style="left: 149px; top: 774px; position: absolute; text-align: center; color: white; font-size: 18px; font-family: Poppins; font-weight: 600; word-wrap: break-word">Delete Account</div>
+      -->
+      <a href="{{ url_for('auth.terminate_account') }}"><input class="Delete_Account_Button" type="button" value="Delete Account" style="width: 204px; height: 37px; left: 118px; top: 769px; position: absolute; background: linear-gradient(180deg, #FE3434 0%, #A20606 100%); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px; border: 1px #111111 solid; text-align: center; color: white; font-size: 18px; font-family: Poppins; font-weight: 600; word-wrap: break-word"></a>
+    <!--
+    </button>
+    -->
+  </form>
+{% endblock %}
+
+<!--
+</div>
+-->
