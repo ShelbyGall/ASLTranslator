@@ -25,6 +25,7 @@ def insert_edit_delete(mysql_command, inputs):
 
 def findUser(username, email):
     input = None
+    mysql_command = ""
     if email is None:
         mysql_command = "SELECT * FROM user WHERE username=%s"
         input = username
@@ -35,7 +36,6 @@ def findUser(username, email):
     result = None
     try:
         cursor = g.db.cursor(dictionary=True)
-        mysql_command = ""
         cursor.execute(mysql_command, (input,))
         result = cursor.fetchone()
         cursor.close()

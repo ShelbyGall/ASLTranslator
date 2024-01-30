@@ -30,7 +30,7 @@ def register():
 
         if error is None:
             if findUser(None, email) is not None:
-                error = f"Email {email} is already registered."
+                error = f"'{email}' is already registered."
             else:
                 cursor = db.cursor(dictionary=True)
                 cursor.execute(
@@ -217,7 +217,7 @@ def verify_reset_token(token):
 @login_required
 def terminate_account():
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.form['enteremailaddressinput']
         cursor = get_db().cursor(dictionary=True)
         cursor.execute(
             "SELECT * FROM user WHERE email=%s",
@@ -226,19 +226,23 @@ def terminate_account():
         user = cursor.fetchone()
         cursor.close()
 
-        flash("You just terminated your account. Come back again soon! :-)")
-
-        if user:
+        if user is not None and g.user == user:
             emailsender.send_email(email, 'termination_email.html')
+            print(email)
             cursor = get_db().cursor(dictionary=True) 
             cursor.execute(
-                "DELETE FROM %s WHERE email=%s AND password=%s",
-                (email, generate_password_hash(user[2]), )
+                "DELETE FROM 491project.user WHERE email=%s",
+                (email, )
             )
-            user = cursor.fetchone()
+            g.db.commit()
             cursor.close()
 
-        return redirect(url_for('auth.logout'))
+            flash("You just terminated your account. Come back again soon! :-)")
+            return redirect(url_for('auth.logout'))
+        else:
+            flash("The email entered doesn't match your account email.")
+        
+        return render_template('account_deletion.html')
     
     return render_template('account_deletion.html')
 '''TERMINATE ACCOUNT END'''

@@ -6,20 +6,23 @@
     
   {% block content %}
   <form method="post" style="text-align:center">
-    <div class="Home_Page_Top_Bar" style="width: 387px; height: 72px; left: 12px; top: 31px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px"></div>
+    <div class="Home_Page_Top_Bar" style="width: 387px; height: 72px; left: 12px; top: 31px; position: absolute; background: rgba(61.54, 53.59, 53.59, 0.12); box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px">
+      <div class="Home" id="HomeText" style="position: absolute; text-align: bottom; color: #0B0505; font-size: 25px; font-family: Poppins; font-weight: 700; word-wrap: break-word">Home</div>
+    </div>
     <img class="Home_Page_Top_Bar_Icon" style="width: 83px; height: 83px; left: 342px; top: 25px; position: absolute; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)" src="/static/Account_Icon.png" alt="/static/331x316.png" />
-      
+    
+    <!--
+    <div class="Home" style="position: absolute; text-align: bottom; color: #0B0505; font-size: 25px; font-family: Poppins; font-weight: 700; word-wrap: break-word">Home</div>
+    -->
+
     <a href="{{ url_for('home.accountsettings') }}">
     <!--
     {#
     <button onclick="location.href = '{{ url_for('home.accountsettings') }}';">
     #}
     -->
-      <div class="Account_Settings_Navigation_Button" style="width: 373px; height: 56px; left: 29px; top: 183px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid"></div>
-      <div class="Frame1" style="height: 56px; padding: 10px; left: 120px; top: 183px; position: absolute; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-        <div class="Frame2" style="justify-content: center; align-items: center; gap: 10px; display: flex">
-          <div class="Account_Settings_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Account Settings</div>
-        </div>
+      <div class="Account_Settings_Navigation_Button" style="width: 373px; height: 56px; left: 29px; top: 183px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid">
+        <div class="Account_Settings_Text" id="Account_Settings_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Account Settings</div>
       </div>
     <!--
     </button>
@@ -33,11 +36,8 @@
     #}
     -->
 
-      <div class="ASL_Video_Page_Navigation_Button" style="width: 373px; height: 56px; left: 29px; top: 251px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid"></div>
-      <div class="Frame2" style="padding: 10px; left: 129px; top: 254px; position: absolute; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-        <div class="Frame2" style="justify-content: center; align-items: center; gap: 10px; display: flex">
-          <div class="ASL_Video_Page_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">ASL Video Page</div>
-        </div>
+      <div class="ASL_Video_Page_Navigation_Button" style="width: 373px; height: 56px; left: 29px; top: 251px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid">
+        <div class="ASL_Video_Page_Text" id="ASL_Video_Page_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">ASL Video Page</div>
       </div>
 
     <!--
@@ -51,11 +51,8 @@
     <button onclick="location.href = '{{ url_for('blog.postpage') }}';">
     #}
     -->
-      <div class="Blog_Page_Navigation_Button" style="width: 373px; height: 56px; left: 29px; top: 319px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid"></div>
-      <div class="Frame4" style="padding: 10px; left: 155px; top: 322px; position: absolute; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-        <div class="Frame2" style="justify-content: center; align-items: center; gap: 10px; display: flex">
-          <div class="Blog_Page_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Blog Page</div>
-        </div>
+      <div class="Blog_Page_Navigation_Button" style="width: 373px; height: 56px; left: 29px; top: 319px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid">
+        <div class="Blog_Page_Text" id="Blog_Page_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Blog Page</div>
       </div>
     <!--
     </button>
@@ -68,11 +65,8 @@
     <button onclick="location.href = '{{ url_for('auth.logout') }}';">
     #}
     -->
-      <div class="Log_Out_Button" style="width: 373px; height: 56px; left: 29px; top: 387px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid"></div>
-      <div class="Frame3" style="padding: 10px; left: 167px; top: 390px; position: absolute; justify-content: center; align-items: center; gap: 10px; display: inline-flex">
-        <div class="Frame2" style="justify-content: center; align-items: center; gap: 10px; display: flex">
-          <div class="Log_Out_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Log Out</div>
-        </div>
+      <div class="Log_Out_Button" style="width: 373px; height: 56px; left: 29px; top: 387px; position: absolute; background: #F49F9F; box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 10px; border: 1px black solid">
+        <div class="Log_Out_Text" id="Log_Out_Text" style="text-align: center; color: black; font-size: 20px; font-family: Poppins; font-weight: 400; word-wrap: break-word">Log Out</div>
       </div>
     <!--
     </button>
