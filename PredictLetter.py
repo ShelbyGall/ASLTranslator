@@ -1,7 +1,18 @@
 import cv2
 import numpy as np
 import mediapipe as mp
+from tensorflow.keras.models import load_model
 
+# Load the trained model
+model = load_model('.//asl_Alphabet_Model_v.0.1.h5')
+
+# actions to be detected by model
+actions = np.array(['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'nothing', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
+
+# this is used to make sure our model is displaying output that is at least 85% accurate
+threshold = 0.85
+
+# used for drawing landmarks on hand in real time
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
@@ -76,20 +87,13 @@ def formatPoints(results):
         
     return np.concatenate([left, right])
 
-#import cv2
-#import numpy as np
-#from imageProcessing import mp_detection, formatPoints, draw_styled_landmarks, mp_hands
-from tensorflow.keras.models import load_model
 
-# Load the trained model
-model = load_model('.//asl_Alphabet_Model_v.0.1.h5')
 
-# actions to be detected by model
-actions = np.array(['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'nothing', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-
-# this is used to make sure our model is displaying output that is at least 85% accurate
-threshold = 0.85
-
+# ================================================================================================================================
+# predict_letter_from_image(image_path)
+#     Input:     image_path - path of the image to predict
+#     Output:    String     - letter that model predicts from image
+# ================================================================================================================================
 def predict_letter_from_image(image_path):
     with mp_hands.Hands(max_num_hands=2, model_complexity=0, min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
         # Load the image
