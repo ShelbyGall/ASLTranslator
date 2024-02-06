@@ -96,8 +96,10 @@ def formatPoints(results):
 # ================================================================================================================================
 def predict_letter_from_image(image_path):
     with mp_hands.Hands(max_num_hands=2, model_complexity=0, min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
-        # Load the image
+        # Attempt to load the image
         image = cv2.imread(image_path)
+        if image is None:
+            raise ValueError(f"Failed to load image from path: {image_path}")
         image = cv2.flip(image, 1)
 
         # Process the image to get keypoints
@@ -105,19 +107,20 @@ def predict_letter_from_image(image_path):
         keypoints = formatPoints(results)
 
         # Predict the letter
-    if keypoints.size > 0:
-        sequence = [keypoints]
-        res = model.predict(np.expand_dims(sequence, axis=0))[0]
-        letter = actions[np.argmax(res)]
-        probability = res[np.argmax(res)]
+        if keypoints.size > 0:
+            sequence = [keypoints]
+            res = model.predict(np.expand_dims(sequence, axis=0))[0]
+            letter = actions[np.argmax(res)]
+            probability = res[np.argmax(res)]
 
-        # Return the letter if confidence is above threshold
-        if probability > threshold and letter != "nothing":
-            return letter
-    return "No valid letter detected"
+            # Return the letter if confidence is above threshold
+            if probability > threshold and letter != "nothing":
+                return letter
+        return "No valid letter detected"
+
 
 
 # Example usage
-image_path = 'TestImages/testletterF.jpg'
-predicted_letter = predict_letter_from_image(image_path)
-print(f"Predicted letter: {predicted_letter}")
+#image_path = 'TestImages/testletterF.jpg'
+#predicted_letter = predict_letter_from_image(image_path)
+#print(f"Predicted letter: {predicted_letter}")
