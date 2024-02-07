@@ -2,12 +2,24 @@ import cv2
 import numpy as np
 import mediapipe as mp
 from tensorflow.keras.models import load_model
-
-# Load the trained model
-model = load_model('.//asl_Alphabet_Model_v.0.1.h5')
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.callbacks import TensorBoard
 
 # actions to be detected by model
 actions = np.array(['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'nothing', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
+
+# build the layout for the model so that we can load in the saved weights
+model = Sequential()
+model.add(LSTM(64, return_sequences=True, activation='relu', input_shape=(1,126)))
+model.add(LSTM(128, return_sequences=True, activation="relu"))
+model.add(LSTM(64, return_sequences=False, activation='relu'))
+model.add(Dense(64, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(actions.shape[0], activation='softmax'))
+
+# Load the trained model
+model.load_weights('.//asl_Alphabet_Model_v.0.1.h5')
 
 # this is used to make sure our model is displaying output that is at least 85% accurate
 threshold = 0.85
@@ -90,17 +102,12 @@ def formatPoints(results):
 
 
 # ================================================================================================================================
-# predict_letter_from_image(image_path)
-#     Input:     image_path - path of the image to predict
+# predict_letter_from_image(image)
+#     Input:     image - image to be translated
 #     Output:    String     - letter that model predicts from image
 # ================================================================================================================================
-def predict_letter_from_image(image_path):
+def predict_letter_from_image(image):
     with mp_hands.Hands(max_num_hands=2, model_complexity=0, min_detection_confidence=0.5, min_tracking_confidence=0.5) as hands:
-        # Attempt to load the image
-        image = cv2.imread(image_path)
-        if image is None:
-            raise ValueError(f"Failed to load image from path: {image_path}")
-        image = cv2.flip(image, 1)
 
         # Process the image to get keypoints
         _, results = mp_detection(image, hands)

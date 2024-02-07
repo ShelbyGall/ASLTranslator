@@ -1,5 +1,6 @@
 import os
 import random
+import cv2
 from PredictLetter import predict_letter_from_image, actions
 
 # The directory where the test images are stored, organized by letter
@@ -37,8 +38,10 @@ def main():
             if image_name in tested_images:
                 continue  # Skip if this image has already been tested
             image_path = os.path.join(letter_dir, image_name)
+            # read the actual image into the code using openCV
+            img = cv2.imread(image_path)
             # Call prediction function to get the predicted letter for the image
-            predicted_letter = predict_letter_from_image(image_path)
+            predicted_letter = predict_letter_from_image(img)
             
             # Only count the image if keypoints were detected otherwise choose another image
             if predicted_letter != "No valid letter detected":
