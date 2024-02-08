@@ -100,7 +100,7 @@ def formatPoints(results):
     return np.concatenate([left, right])
 
 
-
+# Josh's method that we need to implement
 # ================================================================================================================================
 # predict_letter_from_image(image)
 #     Input:     image - image to be translated

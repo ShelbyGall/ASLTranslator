@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Video Feed</h1>
-<img src="{{ url_for('video_feed') }}">
+
+<!-- This is the user's webcam stream-->
+<div id="container">
+      <video autoplay playsinline id="videoElement"></video>
+      <canvas id="canvas" width="400" height="300"></canvas>
+</div>
+
+<!-- This is the new ASL frame, the source is dynamically set from Javascript-->
+<div class= 'video'>
+    <img id="photo" width="400" height="300">
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- This allows us to utilize the socketio library functions in our javascript scripts-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+<!-- This is the Javascript script that will be ran to get video input/output -->
+<!-- <script src="./static/webCamAccess.js"></script> -->
+<script src="{{ url_for('static', filename='webCamAccess.js') }}"></script>
+
 {% endblock %}
