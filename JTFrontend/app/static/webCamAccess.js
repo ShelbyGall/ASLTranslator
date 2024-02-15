@@ -1,8 +1,8 @@
-//var socket = io.connect('http://192.168.1.171:5000'); //http://127.0.0.1:5000 http://192.168.1.171:5000
-//window.location.protocol
-// This is how we establish connection from the server to the client-side
+// This is how we establish connection to the server from the client-side
 // i.e. this is the url we go to on the browser
 var socket = io.connect("http://" + document.domain + ":" + location.port);
+// Array to store the letter sequence being sent over
+const letterSequence = [];
 
 // Essentially, This is a listener on the client-side when the server runs
 // an event named 'connect', it'll print the following in the browser console window
@@ -17,6 +17,7 @@ var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 const video = document.querySelector("#videoElement");
 
+// this is just the dimensions of the video
 video.width = 400;
 video.height = 300;
 
@@ -30,9 +31,10 @@ if (navigator.mediaDevices.getUserMedia) {
 }
 
 // This is how many frames per second we are sending over to the backend/sever-side
-// We are sending 1 frame every 100 milliseconds
-const FPS = 10;
+// We are sending 1 frame to the backend every 10,000 milliseconds / 10 seconds
+
 setInterval(() => {
+  // the dimensions of the canvas will be the same as the dimensions of the video
   width = video.width;
   height = video.height;
   // this draws the image of the video to the canvas
@@ -45,10 +47,31 @@ setInterval(() => {
   // we send the data to the backend in which the method with @socketio.on("image")
   // handles the data
   socket.emit("image", data);
-}, 1000 / FPS);
+}, 2500); //100000 / FPS 10000
+
+// Function to print last element of array
+// This is a temporary method I made to get the last element/ current ASL translation
+// Then we print out the last element of the array
+function printArrayToHTML(array) {
+    // This links the html element with id = 'arrayOutput' to this variable in javascript
+    const arrayOutputDiv = document.getElementById('arrayOutput');
+
+    // This clears the output from the previous iteration
+    // E.g. if an 'A' is displayed, it will clear that by displaying '' which is nothing
+    arrayOutputDiv.innerHTML = '';
+
+    const lastElement = array[array.length - 1];
+    arrayOutputDiv.innerHTML = lastElement;
+
+}
 
 // we receive the new frame/image back that has been processed by ASL detection and then we
 // update the new source for the image being displayed
-socket.on("processed_image", function (image) {
-  photo.setAttribute("src", image);
+socket.on("letter", function (letter) {
+  // we push to the global array we made
+  letterSequence.push(letter);
+  // we then print the sequence
+  // currently, it's only printing the last ASL Translation (for testing purposes)
+  printArrayToHTML(letterSequence)
 });
+

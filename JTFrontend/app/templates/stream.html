@@ -1,23 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Video Feed</h1>
+<h1>Live ASL Translation</h1>
 
+<!-- This is the ASL Translation Output -->
+<div id="arrayOutput"></div>
 <!-- This is the user's webcam stream-->
 <div id="container">
       <video autoplay playsinline id="videoElement"></video>
-      <canvas id="canvas" width="400" height="300"></canvas>
+      <!-- This is the canvas which is used to transport the image data we copied from the video frame to the Backend -->
+      <!-- We only want it to store the data and not show up on the page, so we set the display to none-->
+      <canvas id="canvas" width="400" height="300" style="display:none;"></canvas>
 </div>
 
-<!-- This is the new ASL frame, the source is dynamically set from Javascript-->
-<div class= 'video'>
-    <img id="photo" width="400" height="300">
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- This allows us to utilize the socketio library functions in our javascript scripts-->
+<!-- Additionally, this is used to contact the Python Backend using functions like .emit and .on-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
 <!-- This is the Javascript script that will be ran to get video input/output -->
-<!-- <script src="./static/webCamAccess.js"></script> -->
 <script src="{{ url_for('static', filename='webCamAccess.js') }}"></script>
 
 {% endblock %}

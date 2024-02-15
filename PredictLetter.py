@@ -5,6 +5,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.callbacks import TensorBoard
+import os
 
 # actions to be detected by model
 actions = np.array(['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'nothing', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
@@ -18,8 +19,11 @@ model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(actions.shape[0], activation='softmax'))
 
-# Load the trained model
-model.load_weights('.//asl_Alphabet_Model_v.0.1.h5')
+# load the saved model into the model variable
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.join(current_dir) #, '..', '..'
+model_weights_path = os.path.join(project_root, 'asl_Alphabet_Model_v.0.1.h5')
+model.load_weights(model_weights_path) #'.//asl_Alphabet_Model_v.0.1.h5'
 
 # this is used to make sure our model is displaying output that is at least 85% accurate
 threshold = 0.85
@@ -123,8 +127,8 @@ def predict_letter_from_image(image):
             # Return the letter if confidence is above threshold
             if probability > threshold and letter != "nothing":
                 return letter
-        return "No valid letter detected"
-
+            else:
+                return "No valid letter detected"
 
 
 # Example usage

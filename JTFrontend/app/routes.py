@@ -1,13 +1,17 @@
-from flask import render_template, send_from_directory
+import eventlet
+from flask import render_template, send_from_directory, request
 from JTFrontend.app import app
 from JTFrontend.app import socketio
 from flask import request, jsonify
 import base64
 from flask_socketio import emit
 from main import ASLdetection
+from PredictLetter import predict_letter_from_image
 import numpy as np
 import cv2
 import os
+import threading
+import tensorflow as tf
 
 @app.route('/')
 @app.route('/home')
@@ -42,35 +46,32 @@ def base64_to_image(base64_string):
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
     return image
 
+# Backend side to know that the Frontend connected to the Backend
 @socketio.on("connect")
 def test_connect():
     print("Connected")
-    emit("my response", {"data": "Connected"})
+    # We send a message back to the
+    #emit("my response", {"data": "Connected"})
 
 @socketio.on("image")
 def receive_image(image):
     print('received image')
-    # Decode the base64-encoded image data (essentially call in the conversion method)
+    # Decode the base64-encoded image data
+    # Since the frontend sends the image data via base64 url, we have to decode it back to its original form
     image = base64_to_image(image)
 
-    # Perform image processing using OpenCV
-    # we send the image to our ASLdetection model
-    gray = ASLdetection(image)
-    # gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # the ASL detection model is then resized
-    frame_resized = cv2.resize(gray, (640, 360))
+    # We perform a image processing asynchronously by creating a task which calls/performs process_image
+    # and is associated with the session id which is defined by request.sid
+    # Every client that we receive an image from will create its own task to process the image
+    eventlet.spawn(process_image, image, request.sid) # Pass the request.sid to identify the client
 
-    # Now we prep the data to be sent back to the front-end
-    # Encode the processed image as a JPEG-encoded base64 string
-    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
-    result, frame_encoded = cv2.imencode(".jpg", frame_resized, encode_param)
-    processed_img_data = base64.b64encode(frame_encoded).decode()
+def process_image(image, client_sid):
+    # We pass in the image and send it over to Josh's predict_letter... method
+    letter = predict_letter_from_image(image)
+    # We pause the current execution briefly to allow other clients to schedule their tasks next
+    eventlet.sleep(0)
+    print('processed and sent image' + str(client_sid))
 
-    # Prepend the base64-encoded string with the data URL prefix
-    b64_src = "data:image/jpg;base64,"
-    processed_img_data = b64_src + processed_img_data
-
-    # Send the processed image back to the client-side
-    # On the client-side the javascript listener: socket.on("processed_image"...
-    # will receive the new processed image
-    emit("processed_image", processed_img_data)
+    # Emit the processed letter back to the client identified by client_sid/request.sid
+    # This way, the program knows which client to send the output back to
+    socketio.emit("letter", letter, room=client_sid)
