@@ -3,7 +3,7 @@ import numpy as np
 import os
 import time
 import keyboard
-from imageProcessing import mp_detection, formatPoints, draw_styled_landmarks, mp_hands
+from PredictLetter import mp_detection, formatPoints, draw_styled_landmarks, mp_hands
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.callbacks import TensorBoard
