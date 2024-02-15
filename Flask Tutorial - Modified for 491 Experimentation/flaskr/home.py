@@ -4,8 +4,10 @@ from flask import (
 from werkzeug.exceptions import abort
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
+from auth import login_required
+from db import get_db
+#from auth import *
+#from db import *
 
 bp = Blueprint('home', __name__)
 
