@@ -5,10 +5,22 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
-from flaskr.db import findUser
+from db import get_db
+from db import findUser
+#from db import *
+#from db import *
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
@@ -77,42 +89,9 @@ def login():
 
     return render_template('login.html')
 
-
-@bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-
-    if user_id is None:
-        g.user = None
-    else:
-        cursor = get_db().cursor(dictionary=True)
-        cursor.execute(
-            "SELECT * FROM user WHERE id=%s",
-            (user_id, )
-        )
-        g.user = cursor.fetchone()
-        cursor.close()
-
-@bp.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('index'))
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
-
-
 '''EMAIL INFORMATION START'''
-
-from . import emailsender
+#import emailsender
+from emailsender import send_email
 
 @bp.route('/reset', methods=('GET', 'POST'))
 def reset():
@@ -132,7 +111,8 @@ def reset():
 
         if user:
             #emailsender.send_email(email)
-            emailsender.send_email(email, 'reset_email.html')
+            #emailsender.send_email(email, 'reset_email.html')
+            send_email(email, 'reset_email.html')
 
         return redirect(url_for('auth.login'))
     
@@ -179,7 +159,7 @@ def reset_verified(token):
     return render_template('reset_verified.html')
 
 import time
-from . import JWT_SECRET_KEY
+from __init__ import JWT_SECRET_KEY
 
 def get_reset_token(usernameoremail, expires=500):
     return jwt.encode(
@@ -227,7 +207,8 @@ def terminate_account():
         cursor.close()
 
         if user is not None and g.user == user:
-            emailsender.send_email(email, 'termination_email.html')
+            #emailsender.send_email(email, 'termination_email.html')
+            send_email(email, 'termination_email.html')
             print(email)
             cursor = get_db().cursor(dictionary=True) 
             cursor.execute(
@@ -246,3 +227,23 @@ def terminate_account():
     
     return render_template('account_deletion.html')
 '''TERMINATE ACCOUNT END'''
+
+@bp.before_app_request
+def load_logged_in_user():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        g.user = None
+    else:
+        cursor = get_db().cursor(dictionary=True)
+        cursor.execute(
+            "SELECT * FROM user WHERE id=%s",
+            (user_id, )
+        )
+        g.user = cursor.fetchone()
+        cursor.close()
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))

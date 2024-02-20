@@ -3,8 +3,10 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from flaskr.auth import login_required
-from flaskr.db import get_db
+#from auth import login_required
+#from db import get_db
+from auth import *
+from db import *
 
 bp = Blueprint('blog', __name__, url_prefix='/blog')
 
