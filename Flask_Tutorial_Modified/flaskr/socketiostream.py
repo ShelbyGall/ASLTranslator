@@ -1,27 +1,17 @@
 import eventlet
-from flask import render_template, send_from_directory
-from flaskr import app
-from JTFrontend.app import socketio
+#from Flask_Tutorial_Modified.flaskr import app  # Flask Tutorial - Modified for 491 Experimentation
+#from Flask_Tutorial_Modified.flaskr import socketio
+
 from flask import request
 import base64
 from PredictLetter import predict_letter_from_image
 import numpy as np
 import cv2
-import os
+#from Flask_Tutorial_Modified.flaskr import socketio
 
-@app.route('/')
-@app.route('/home')
-def home():
-    return render_template('home.html')
+from flask_socketio import SocketIO
 
-# this is to clear that one error - 500 for frontend application
-@app.route("/favicon.ico")
-def favicon():
-    return send_from_directory(
-        os.path.join(app.root_path, "static"),
-        "favicon.ico",
-        mimetype="image/vnd.microsoft.icon",
-    )
+socketio = SocketIO()
 
 # This is used to convert the image from base64url (from the frontend) back to image data
 # Essentially it converts like the following:
