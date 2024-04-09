@@ -128,8 +128,7 @@ def predict_letter_from_image(image):
             if probability > threshold and letter != "nothing":
                 return letter
             else:
-                return "No valid letter detected"
-
+                return "nothing"
 
 # Example usage
 #image_path = 'TestImages/testletterF.jpg'

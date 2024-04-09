@@ -44,7 +44,7 @@ def main():
             predicted_letter = predict_letter_from_image(img)
             
             # Only count the image if keypoints were detected otherwise choose another image
-            if predicted_letter != "No valid letter detected":
+            if predicted_letter != "nothing":
                 tested_images.add(image_name)  # Add image to tested
                 if predicted_letter == letter:
                     results[letter]['correct'] += 1  # Correct

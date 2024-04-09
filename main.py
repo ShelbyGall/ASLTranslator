@@ -1,47 +1,23 @@
-import cv2
-import numpy as np
-import os
 import time
 import keyboard
-from PredictLetter import mp_detection, formatPoints, draw_styled_landmarks, mp_hands
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
-from tensorflow.keras.callbacks import TensorBoard
 
-#### create array to signify the actions for iterating
-# actions to be detected by model
-actions = np.array(['A', 'B', 'C', 'D', 'del', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'nothing', 'O', 'P', 'Q', 'R', 'S', 'space', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'])
-
-# build the layout for the model so that we can load in the saved weights
-model = Sequential()
-model.add(LSTM(64, return_sequences=True, activation='relu', input_shape=(1,126)))
-model.add(LSTM(128, return_sequences=True, activation="relu"))
-model.add(LSTM(64, return_sequences=False, activation='relu'))
-model.add(Dense(64, activation='relu'))
-model.add(Dense(32, activation='relu'))
-model.add(Dense(actions.shape[0], activation='softmax'))
-
-# load the saved model into the model variable
-current_dir = os.path.dirname(os.path.abspath(__file__))
-project_root = os.path.join(current_dir) #, '..', '..'
-model_weights_path = os.path.join(project_root, 'asl_Alphabet_Model_v.0.1.h5')
-model.load_weights(model_weights_path) #'.//asl_Alphabet_Model_v.0.1.h5'
-
-# used for formatting purposes in order to pass our keypoints to our model
-sequence = []
 
 # the current sentence being displayed 
 sentence = []
 
-# the probability threshold of our models output
-# this is used to make sure our model is displaying output that is at least 85% accurate
-threshold = 0.85
-
-
 detectionFlag = 0
 
+import PredictLetter as pl
+model = pl.model
+cv2 = pl.cv2
+mp_detection = pl.mp_detection
+formatPoints = pl.formatPoints
+mp_hands = pl.mp_hands
+actions = pl.actions
+np = pl.np
+threshold = pl.threshold
+
 def ASLdetection(frame):
-    global cap, sequence, sentence, threshold, detectionFlag
     with mp_hands.Hands(max_num_hands=2, model_complexity=0, min_detection_confidence=0.5,
                         min_tracking_confidence=0.5) as hands:
         frame = cv2.flip(frame, 1)
@@ -85,17 +61,11 @@ def ASLdetection(frame):
         if keyboard.is_pressed("d"):
             sentence = []
 
-        # output sentence on the screen
-        cv2.rectangle(image, (0, 0), (640, 40), (245, 117, 16), -1)
-        cv2.putText(image, "".join(sentence), (3, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 3,
-                    cv2.LINE_AA)
-
         return image
 pass
 
 # checks if camera connection is on
-def camCheck():
-    global cap
+def camCheck(cap):
     # the time to wait if cap doesnt recognize a camera connection
     if not cap.isOpened():
         # waitTime is our grace period for when camera is not init. detected
@@ -115,6 +85,8 @@ def camCheck():
                 print("")
                 print(f"camera detected\t\t")
                 break
+    elif cap.isOpened():
+        print("Camera Detected")
 pass
 
 def releaseCam():
@@ -129,3 +101,35 @@ def releaseCam():
     print("")
     print("program exited")
 pass
+
+cap = cv2.VideoCapture(0)
+camCheck(cap)
+
+while True:
+    _, frame = cap.read()
+    if keyboard.is_pressed("c"):
+        sentence = []
+    if detectionFlag == 60:
+        detectionFlag = 0
+        letter = pl.predict_letter_from_image(frame)
+        if letter == 'del':
+            sentence.pop()
+        elif letter == "space":
+            sentence.append(" ")
+        elif letter != 'nothing':
+            sentence.append(letter)
+
+    # output sentence on the screen
+    cv2.flip(frame,1)
+    cv2.rectangle(frame, (0, 0), (640, 40), (0, 0, 0), -1)
+    if sentence:
+        cv2.putText(frame, "".join(sentence), (3, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2,
+                    cv2.LINE_AA)
+    cv2.imshow("ASL Detector", frame)
+    if cv2.waitKey(10) & 0xFF == ord('q'):
+        break
+    detectionFlag+=1
+
+releaseCam()
+
+
