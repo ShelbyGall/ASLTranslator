@@ -35,12 +35,17 @@ def streamVideo(counter):
 detectWin = tk.Tk()
 detectWin.geometry('800x800')
 detectWin.title("ASL detector")
+# Add background= to background, text, and detectLab
+detectWinFrame = tk.Frame(detectWin, background="#FFAA0A")
+detectWinFrame.pack()
 
+background = tk.Frame(detectWin)
+background.pack()
 
 text = tk.Label(text="here is the output")
 text.pack()
 
-clear = tk.Button(text="clear", command=clearSen )
+clear = tk.Button(text="clear", bg="dodgerblue", font="Arial", command=clearSen )
 clear.pack()
 
 detectLab = tk.Label(detectWin)
