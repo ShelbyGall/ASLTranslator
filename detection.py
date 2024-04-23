@@ -3,6 +3,19 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import cv2
 
+from pynput.keyboard import Controller
+keyboard = Controller()
+
+keyboardLetterCheck = False
+def keyboardLetterCheckTrueOrFalse():
+    global keyboardLetterCheck
+
+    if keyboardLetterCheck == False:
+        keyboardLetterCheck = True
+    else:
+        keyboardLetterCheck = False
+
+
 sentence = []
 
 def clearSen():
@@ -10,6 +23,8 @@ def clearSen():
         sentence.clear()
 
 def streamVideo(counter):
+    global keyboardLetterCheck
+
     _, frame = cap.read()
     if (counter % 30) == 0:
         letter = pl.predict_letter_from_image(frame)
@@ -20,6 +35,11 @@ def streamVideo(counter):
             sentence.append("_")
         elif letter != 'nothing':
             sentence.append(letter)
+
+            if (keyboardLetterCheck == True):
+                print(letter)
+                keyboard.type(letter)
+
         text.configure(text="".join(sentence))
 
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
@@ -39,6 +59,11 @@ detectWin.title("ASL detector")
 
 text = tk.Label(text="here is the output")
 text.pack()
+
+
+keyboardLetterCheckOutput = tk.Button(text="Output Keys", command=keyboardLetterCheckTrueOrFalse )
+keyboardLetterCheckOutput.pack()
+
 
 clear = tk.Button(text="clear", command=clearSen )
 clear.pack()
