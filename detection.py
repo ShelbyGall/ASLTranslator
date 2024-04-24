@@ -2,6 +2,8 @@ import PredictLetter as pl
 import tkinter as tk
 from PIL import ImageTk, Image
 import cv2
+import time
+
 
 from pynput.keyboard import Controller
 keyboard = Controller()
@@ -21,6 +23,15 @@ sentence = []
 def clearSen():
     if sentence:
         sentence.clear()
+
+def camCheck():
+    if cap.isOpened():
+        camLab.config(text="Camera Online", fg="white", bg="green")
+    else:
+        camLab.config(text="Camera Offline", fg="white", bg="red")
+    
+    return cap.isOpened()
+
 
 def streamVideo(counter):
     global keyboardLetterCheck
@@ -53,9 +64,11 @@ def streamVideo(counter):
     
 
 detectWin = tk.Tk()
-detectWin.geometry('800x800')
+detectWin.geometry('800x600')
 detectWin.title("ASL detector")
 
+camLab = tk.Label(detectWin)
+camLab.pack()
 
 text = tk.Label(text="here is the output")
 text.pack()
@@ -71,9 +84,7 @@ clear.pack()
 detectLab = tk.Label(detectWin)
 detectLab.pack()
 
-
 cap = cv2.VideoCapture(0)
- 
 
 streamVideo(counter=0)
 

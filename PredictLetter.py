@@ -22,7 +22,7 @@ model.add(Dense(actions.shape[0], activation='softmax'))
 # load the saved model into the model variable
 current_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.join(current_dir) #, '..', '..'
-model_weights_path = os.path.join(project_root, 'asl_Alphabet_Model_v.0.1.h5')
+model_weights_path = os.path.join(project_root, 'asl_Alphabet_Model_v.0.2.h5')
 model.load_weights(model_weights_path) #'.//asl_Alphabet_Model_v.0.1.h5'
 
 # this is used to make sure our model is displaying output that is at least 85% accurate
