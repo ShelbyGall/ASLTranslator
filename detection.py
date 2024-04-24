@@ -5,6 +5,19 @@ import cv2
 import time
 
 
+from pynput.keyboard import Controller
+keyboard = Controller()
+
+keyboardLetterCheck = False
+def keyboardLetterCheckTrueOrFalse():
+    global keyboardLetterCheck
+
+    if keyboardLetterCheck == False:
+        keyboardLetterCheck = True
+    else:
+        keyboardLetterCheck = False
+
+
 sentence = []
 
 def clearSen():
@@ -21,24 +34,30 @@ def camCheck():
 
 
 def streamVideo(counter):
-    if camCheck():
-        _, frame = cap.read()
-        if (counter % 30) == 0:
-            letter = pl.predict_letter_from_image(frame)
-            if letter == 'del':
-                if sentence:
-                    sentence.pop()
-            elif letter == "space":
-                sentence.append("_")
-            elif letter != 'nothing':
-                sentence.append(letter)
-            text.configure(text="".join(sentence))
+    global keyboardLetterCheck
 
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-        frame = Image.fromarray(frame)
-        ftk = ImageTk.PhotoImage(frame)
-        detectLab.ftk = ftk
-        detectLab.configure(image=ftk)
+    _, frame = cap.read()
+    if (counter % 30) == 0:
+        letter = pl.predict_letter_from_image(frame)
+        if letter == 'del':
+            if sentence:
+                sentence.pop()
+        elif letter == "space":
+            sentence.append("_")
+        elif letter != 'nothing':
+            sentence.append(letter)
+
+            if (keyboardLetterCheck == True):
+                print(letter)
+                keyboard.type(letter)
+
+        text.configure(text="".join(sentence))
+
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+    frame = Image.fromarray(frame)
+    ftk = ImageTk.PhotoImage(frame)
+    detectLab.ftk = ftk
+    detectLab.configure(image=ftk)
     counter += 1
     detectLab.after(1, streamVideo, counter)
 
@@ -53,6 +72,11 @@ camLab.pack()
 
 text = tk.Label(text="here is the output")
 text.pack()
+
+
+keyboardLetterCheckOutput = tk.Button(text="Output Keys", command=keyboardLetterCheckTrueOrFalse )
+keyboardLetterCheckOutput.pack()
+
 
 clear = tk.Button(text="clear", command=clearSen )
 clear.pack()
