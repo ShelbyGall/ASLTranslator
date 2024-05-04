@@ -1,5 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+
+import TrainingMode
 import detection
 import os
 
@@ -7,7 +9,6 @@ class MainMenu:
 
     def __init__(self):
         self.menuPage = tk.Tk()
-
         self.formatWindow()
         self.createWidgets()
         self.formatWidgets()
@@ -42,8 +43,12 @@ class MainMenu:
 
     def startBtn(self):
         self.menuPage.destroy()
-        self.detection = detection.detection()
+        detection.detection()
     pass
+
+    def trainingModeBtn(self):
+        self.menuPage.destroy()
+        TrainingMode.TrainingMode()
 
     def createWidgets(self):
         # Background Canvas
@@ -80,14 +85,15 @@ class MainMenu:
         x, y = event.x, event.y
 
         if self.background.coords(self.hitbox1)[0] <= x <= self.background.coords(self.hitbox1)[2] and \
-           self.background.coords(self.hitbox1)[1] <= y <= self.background.coords(self.hitbox1)[3]:
+            self.background.coords(self.hitbox1)[1] <= y <= self.background.coords(self.hitbox1)[3]:
             print("Training Button Clicked")
-        elif self.background.coords(self.hitbox2)[0] <= x <= self.background.coords(self.hitbox2)[2] and \
-             self.background.coords(self.hitbox2)[1] <= y <= self.background.coords(self.hitbox2)[3]:
-            print("Practice Button Clicked")
             self.startBtn()
+        elif self.background.coords(self.hitbox2)[0] <= x <= self.background.coords(self.hitbox2)[2] and \
+            self.background.coords(self.hitbox2)[1] <= y <= self.background.coords(self.hitbox2)[3]:
+            print("Practice Button Clicked")
+            self.trainingModeBtn() # too bade naming convention screwed up.. training is practice
         elif self.background.coords(self.hitbox3)[0] <= x <= self.background.coords(self.hitbox3)[2] and \
-             self.background.coords(self.hitbox3)[1] <= y <= self.background.coords(self.hitbox3)[3]:
+            self.background.coords(self.hitbox3)[1] <= y <= self.background.coords(self.hitbox3)[3]:
             print("Quit Button Clicked")
             self.menuPage.destroy()
 
