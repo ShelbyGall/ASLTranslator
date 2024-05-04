@@ -7,28 +7,11 @@ import os
 
 from pynput.keyboard import Controller
 
-
-
-
-    
-
-
-
-
-
 class detection:
     sentence = []
 
     keyboard = Controller()
     keyboardLetterCheck = False
-    
-    # def camCheck():
-    #     if cap.isOpened():
-    #         camLab.config(text="Camera Online", fg="white", bg="green")
-    #     else:
-    #         camLab.config(text="Camera Offline", fg="white", bg="red")
-    #
-    #     return cap.isOpened()
     
     def keyboardLetterCheckTrueOrFalse(self):
 
@@ -76,36 +59,48 @@ class detection:
 
     def __init__(self):
         self.detectWin = tk.Tk()
-        self.detectWin.geometry('1000x750')
+        self.detectWin.geometry('1000x500')
+        self.detectWin.minsize(1000, 500)
+        self.detectWin.maxsize(1000, 500)
         self.detectWin.title("ASL detector")
-        self.detectWin.configure(bg='#CFDFEF')
+        self.detectWin.configure(bg='#FF7372')
 
-        self.detectWinFrame = tk.Frame(self.detectWin, bg='#CFDFEF')
+        self.winChild = tk.Toplevel()
+        self.winChild.geometry("500x500")
+        self.winChild.title("ASL Help/Guide")
+        self.winChild.configure(bg='#FF7372')
 
-        # camLab = tk.Label(detectWin)
-        # camLab.pack()
+        # Get the current working directory
+        current_directory = os.getcwd()
 
-        self.text = tk.Label(self.detectWinFrame, text="here is the output", bg='#CFDFEF')
-        self.text.pack()
+        file_pathBG = os.path.join(current_directory, "ASL_Alphabet.jpg")
+        self.bgImage = Image.open(file_pathBG)  # Open the image using PIL
+        self.bgImage = self.bgImage.resize((475, 475))
+        self.bgImage = ImageTk.PhotoImage(self.bgImage)  # Create PhotoImage
 
-        keyboardLetterCheckOutput = tk.Button(self.detectWinFrame, text="Output Keys", command=self.keyboardLetterCheckTrueOrFalse )
-        keyboardLetterCheckOutput.pack()
+        self.image_child = tk.Label(self.winChild, image=self.bgImage)
 
-        self.clear = tk.Button(self.detectWinFrame, text="clear", command=self.clearSen)
-        self.clear.pack()
+        self.image_child.pack()
 
-        self.mainMenuButton = tk.Button(self.detectWinFrame, text="Main Menu", command=self.menuBtn)
-        self.mainMenuButton.pack()
+        self.detectWinFrame = tk.Frame(self.detectWin, bg='#FF7372')
 
-        self.detectLab = tk.Label(self.detectWinFrame, bg='#CFDFEF')
-        self.detectLab.pack()
-        self.detectWinFrame.grid(row=0, column=0, columnspan=1, sticky='news', pady=10)
+        self.text = tk.Label(self.detectWinFrame, text="here is the output", bg='#FF7372', font=('Arial', 24))
+        self.text.grid(row=0, column=1, columnspan=1)
+
+        keyboardLetterCheckOutput = tk.Button(self.detectWinFrame, text="Output Keys", command=self.keyboardLetterCheckTrueOrFalse, bg='black', fg='#fffbbb')
+        keyboardLetterCheckOutput.grid(row=1, column=2, columnspan=1)
+
+        self.clear = tk.Button(self.detectWinFrame, text="clear", command=self.clearSen, bg='black', fg='#fffbbb')
+        self.clear.grid(row=1, column=0, columnspan=1)
+
+        self.mainMenuButton = tk.Button(self.detectWinFrame, text="Main Menu", command=self.menuBtn, bg='black', fg='#fffbbb')
+        self.mainMenuButton.grid(row= 1, column= 1, columnspan=1)
+
+        self.detectLab = tk.Label(self.detectWinFrame, bg='#FF7372')
+        self.detectLab.grid(row=2, column=0, columnspan=3, sticky='news')
+
         self.detectWinFrame.pack()
 
-        
-        # detectLab = tk.Label(detectWin)
-        # detectLab.pack()
-        
         self.cap = cv2.VideoCapture(0)
 
         self.streamVideo(counter=0)
@@ -116,5 +111,5 @@ class detection:
     def menuBtn(self):
         self.cap.release()
         self.detectWin.destroy()
-        mainMenu = PlanBDesktopApp.mainMenu.MainMenu()
+        PlanBDesktopApp.mainMenu.MainMenu()
     pass
