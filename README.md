@@ -46,7 +46,7 @@ Year: 2023-2024
     3. Connect webcam if not connected already\
     4. Give the file a second to load and once the GUI pops up on the screen, the user can choose a mode\
         - Training Mode\
-            Simple webcam interface that allows users to practice ASL alphabet Translations\ 
+            Simple webcam interface that allows users to practice ASL alphabet Translations\
         - Challenge Mode\
-            Game mode meant for testing users on their knowledge and ability to sign letters of the ASL alphabet\
+            Game mode meant for testing users on their knowledge and ability to sign letters of the ASL alphabet
 
