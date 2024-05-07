@@ -29,13 +29,13 @@ Year: 2023-2024
 
 **Installation Instructions:**\
     1. Install python\ 
-        - the version we used was python 3.11 in case the version of python is producing errors\
+            - the version we used was python 3.11 in case the version of python is producing errors\
     2. Install python modules via command line\
-        - open terminal\
-        - navigate to the root directory of the project. The name of the root directory is\
-            .\ASLTranslator\
-        - copy, paste, and run the below command to install all neccessary python modules\
-             pip install tensorflow opencv-python mediapipe scikit-learn matplotlib scikit-image numpy keyboard Flask-Mail Flask eventlet python-socketIO Flask-SocketIO mysql-connector-python PyJWT pynput pygame pillow
+            - open terminal\
+            - navigate to the root directory of the project. The name of the root directory is\
+                .\ASLTranslator\
+            - copy, paste, and run the below command to install all neccessary python modules\
+                 pip install tensorflow opencv-python mediapipe scikit-learn matplotlib scikit-image numpy keyboard Flask-Mail Flask eventlet python-socketIO Flask-SocketIO mysql-connector-python PyJWT pynput pygame pillow
 
 
 **Execution Instructions:**\
