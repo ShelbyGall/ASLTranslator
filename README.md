@@ -1,6 +1,9 @@
 **Class Information:**
+
     Instructor: Professor Wiegley
+    
     Course Name: COMP 491
+    
     Year: 2023-2024
 
 
